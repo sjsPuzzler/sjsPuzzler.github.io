@@ -6,26 +6,70 @@
 	<meta charset="UTF-8">
 	<meta name="keywords" content="event, plan, Meetup, Ottawa, visualization, data">
 	<meta name="description" content="A Visualization tool to help you plan your next Meetup event.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="author" content="Planner Hats">
+  <style>
+    *{box-sizing:border-box;}
+    .header{
+      border: 1px solid;
+      padding: 10px;
+    }
+    .leftMenu{
+      width:330px;
+      float: left;
+      padding: 10px;
+      border: 1px solid;
+    }
+    .main{
+      width: 660px;
+      float: left;
+      padding: 10px;
+      border: 1px solid;
+    }
+    .rightMenu{
+      width: 330px;
+      float: right;
+      padding: 10px;
+      border: 1px solid;      
+    }
+  </style>
 </head>
 <body>
 <!-- Load d3.js -->
-<script src="https://d3js.org/d3.v4.js"></script>
+<div class="header">
+<h1>Planner Hats</h1>
+</div>
 
 <!-- Create a div where the graph will take place -->
-<div id="my_dataviz"></div>
+<div id="monthViz" class="leftMenu">
+
+</div>
+<div class="rightMenu">
+</div>
+<div id="weekViz" class="main">
+  <select style="float:bottom;">
+  <option value="o1">Week 49</option>
+  <option value="o2">Week 50</option>
+  <option value="o3">Week 51</option>
+  <option value="o4">Week 52</option>
+  <option value="o4">Week 53</option>
+  </select>
+</div>
+
+
+<script src="https://d3js.org/d3.v4.js"></script>
 
 <!-- Load color palettes -->
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-<script>
 
-// set the dimensions and margins of the graph
-var margin = {top: 80, right: 25, bottom: 30, left: 40},
-  width = 600 - margin.left - margin.right,
-  height = 600 - margin.top - margin.bottom;
+<script>
+// MonthViz
+var margin = {top: 70, right: 10, bottom: 20, left: 20},
+  width = 300 - margin.left - margin.right,
+  height = 300 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
-var svg = d3.select("#my_dataviz")
+var svg = d3.select("#monthViz")
 .append("svg")
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)
@@ -34,7 +78,7 @@ var svg = d3.select("#my_dataviz")
         "translate(" + margin.left + "," + margin.top + ")");
 
 //Read the data
-d3.csv("https://raw.githubusercontent.com/sjsPuzzler/Meetup/main/csvFile.csv", function(data) {
+d3.csv("https://raw.githubusercontent.com/sjsPuzzler/sjsPuzzler.github.io/main/monthEvents.csv", function(data) {
 
   // Labels of row and columns -> unique identifier of the column called 'day' and 'week'
   var mydays = d3.map(data, function(d){return d.day;}).keys()
@@ -45,7 +89,7 @@ d3.csv("https://raw.githubusercontent.com/sjsPuzzler/Meetup/main/csvFile.csv", f
     .range([ 0, width ])
     .domain(mydays);
   svg.append("g")
-    .style("font-size", 15)
+    .style("font-size", 12)
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x).tickSize(0))
 
@@ -63,7 +107,7 @@ d3.csv("https://raw.githubusercontent.com/sjsPuzzler/Meetup/main/csvFile.csv", f
     .domain([1,100])
 
   // create a tooltip
-  var tooltip = d3.select("#my_dataviz")
+  var tooltip = d3.select("#monthViz")
     .append("div")
     .style("opacity", 0)
     .attr("class", "tooltip")
@@ -84,7 +128,7 @@ d3.csv("https://raw.githubusercontent.com/sjsPuzzler/Meetup/main/csvFile.csv", f
   }
   var mousemove = function(d) {
     tooltip
-      .html("RSVP count:" + d.rsvp)
+      .html("RSVP count: " + d.rsvp)
       .style("left", (d3.mouse(this)[0]+70) + "px")
       .style("top", (d3.mouse(this)[1]) + "px")
   }
@@ -131,17 +175,9 @@ svg.append("text")
         .style("font-size", "14px")
         .style("fill", "grey")
         .style("max-width", 400)
-        .text("Edited code: https://www.d3-graph-gallery.com/graph/heatmap_style.html");
-
-
+        .text("December 2020");
 </script>
 
-<select>
-  <option value="o1">Option 1</option>
-  <option value="o2">Option 2</option>
-  <option value="o3">Option 3</option>
-  <option value="o4">Whatever</option>
-</select>
 
 </body>
 </html>
