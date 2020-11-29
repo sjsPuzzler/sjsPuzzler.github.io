@@ -1,0 +1,10 @@
+date,day,start,end,duration,rsvp
+01,Tuesday,11:00,12:00,60,7
+01,Tuesday,12:00,13:30,90,13
+01,Tuesday,18:00,22:00,240,0
+02,Wednesday,19:00,21:00,120,0
+02,Wednesday,19:00,20:30,90,4
+02,Wednesday,19:30,20:30,60,0
+03,Thursday,13:00,14:00,60,11
+03,Thursday,19:00,21:00,120,13
+06,Sunday,12:00,15:30,210,61
